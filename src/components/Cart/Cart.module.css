@@ -1,0 +1,108 @@
+/* Cart Items List */
+.cart-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 20rem;
+    overflow: auto;
+    background-color: #F8F9FA; /* Light Gray background */
+    border-radius: 8px;
+}
+
+/* Individual Cart Item */
+.cart-items li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #BDC3C7; /* Subtle border for separation */
+    padding: 1.5rem 1rem;
+}
+
+.cart-item-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-item-name {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #2C3E50; /* Dark Blue-Gray for titles */
+}
+
+.cart-item-price {
+    margin-top: 0.25rem;
+    font-weight: bold;
+    color: #E67E22; /* Orange for price */
+    font-size: 1.25rem;
+}
+
+.cart-item-quantity {
+    margin-top : 0.25rem;
+    font-weight: bold;
+    color:#E67E22;
+    font-size: 1.25rem;
+}
+
+/* Cart Item Actions */
+
+/*  */
+
+/* Total Section */
+.total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin: 1rem 0;
+    color: #2C3E50; /* Dark Blue-Gray for readability */
+}
+
+/* Cart Actions */
+.actions {
+    text-align: right;
+}
+
+.actions button {
+    font: inherit;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid #27AE60; /* Green border for positive actions */
+    color: #27AE60;
+    padding: 0.5rem 2rem;
+    border-radius: 25px;
+    margin-left: 1rem;
+    transition: all 0.3s ease;
+}
+
+.actions button:hover,
+.actions button:active {
+    background-color: #229954; /* Darker Green */
+    border-color: #229954;
+    color: white;
+}
+
+/* Alternative Button (Cancel) */
+.actions .button--alt {
+    color: #C0392B; /* Red for alternative actions */
+    border-color: #C0392B;
+}
+
+.actions .button--alt:hover,
+.actions .button--alt:active {
+    background-color: #A93226; /* Darker Red */
+    color: white;
+}
+
+/* Primary Action Button (Checkout/Confirm)  */
+ .actions .button {
+    background-color: #27AE60; 
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.actions .button:hover,
+.actions .button:active {
+    background-color: #229954; 
+}

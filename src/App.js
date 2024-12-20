@@ -1,32 +1,35 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import { ListContextProvider } from "./store/ListContext";
-import { CartContextProvider } from "./store/CartContext";
+import ListContext, { ListContextProvider } from "./store/ListContext";
 import ProductForm from "./components/ProductForm/ProductForm";
 import ProductList from "./components/ProductList/ProductList";
 import Header from "./components/Header/Header";
 import Cart from "./components/Cart/Cart";
 
-const App = () => {
-  const [cartIsShown, setCartIsShown] = useState(false);
+function App() {
 
-  const showCartHandler = () => {
-      setCartIsShown(true);
-  };
+  const [CartIsShown, setCartIsShown] = useState(false);
 
-  const hideCartHandler = () => {
-      setCartIsShown(false);
-  };
+  const ShowCartHandler = () => {
+    setCartIsShown(true);
+  }
+
+  const HideCardHandler = () => {
+    setCartIsShown(false);
+  }
 
   return (
-      <CartContextProvider>
-          <ListContextProvider>
-              <Header onShowCart={showCartHandler} />
-              <ProductForm />
-              <ProductList />
-              {cartIsShown && <Cart onClose={hideCartHandler} />}
-          </ListContextProvider>
-      </CartContextProvider>
+
+    <div>
+
+      <Header onShowCart={ShowCartHandler} />
+      {CartIsShown && <Cart onClose={HideCardHandler} />}
+        <div style={{ marginTop: "2rem" }}>
+      <ProductForm />
+        </div>
+      <ProductList />
+    </div>
+
   );
 };
 

@@ -1,27 +1,19 @@
-import React, { useState, useContext, Fragment } from "react";
-import CartContext from "../../store/CartContext";
+import React, { Fragment } from "react";
+import classes from "./Header.module.css"
+import HeaderCardButton from "./HeaderCartButton";
 
-const Header = ({ onShowCart }) => {
-    const [showCart, setShowCart] = useState(false);
-    const cartCtx = useContext(CartContext);
 
-    const totalCartItems = cartCtx.totalItems;
-   console.log(totalCartItems);
-    const showCartButton = () => {
-        setShowCart(true);
-        onShowCart(); // Pass control to show the cart component
-    };
-
+const Header = (props) => {
     return (
-        <Fragment>
-            <header >
-                <h1>Medicine Inventory</h1>
-                <button onClick={showCartButton}>
-                    Cart ({totalCartItems}) {/* Display total items */}
-                </button>
+            <div>
+
+            <header className={classes.header}>
+                <h1>React Meals</h1>
+                <HeaderCardButton onClick={props.onShowCart} />
             </header>
-        </Fragment>
+            </div>
+           
     );
-};
+}
 
 export default Header;

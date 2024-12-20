@@ -1,0 +1,65 @@
+.button {
+    cursor: pointer;
+    font: inherit;
+    border: none;
+    background-color: #2C3E50; /* Dark Blue-Gray */
+    color: #ECF0F1; /* Light Gray/White */
+    padding: 0.75rem 3rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 25px;
+    font-weight: bold;
+  }
+  
+  .button:hover,
+  .button:active {
+    background-color: #1F2C39; /* Slightly Darker Blue-Gray */
+    transform: translateY(-2px); /* Lift Effect */
+  }
+  
+  .icon {
+    width: 1.5rem; /* Slightly larger icon */
+    height: 1.35rem;
+    margin-right: 0.5rem;
+    color: #F39C12; /* Orange accent for contrast */
+  }
+  
+  .badge {
+    background-color: #E67E22; /* Orange */
+    padding: 0.25rem 1rem;
+    border-radius: 25px;
+    margin-left: 1rem;
+    font-weight: bold;
+  }
+  
+  .button:hover .badge,
+  .button:active .badge {
+    background-color: #D35400; /* Darker Orange */
+  }
+  
+  .bump {
+    animation: bump 300ms ease-out;
+  }
+  
+  @keyframes bump {
+    0% {
+      transform: scale(1);
+    }
+  
+    10% {
+      transform: scale(0.9);
+    }
+  
+    30% {
+      transform: scale(1.1);
+    }
+  
+    50% {
+      transform: scale(1.15);
+    }
+  
+    100% {
+      transform: scale(1);
+    }
+  }

@@ -1,0 +1,23 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #2C3E50; /* Dark Blue-Gray */
+    color: #FFFFFF; /* White */
+}
+
+th, td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #BDC3C7; /* Gray Border */
+    text-align: center;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #F8F9F9; /* Very Light Gray */
+}
+
+tbody tr:hover {
+    background-color: #D5DBDB; /* Light Gray */
+}

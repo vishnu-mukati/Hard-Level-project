@@ -1,47 +1,91 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 const CartContext = React.createContext({
     cartItems: [],
-    addcartItems: () => {},
-    removeCart: () => {},
+    addcartItems: () => { },
+    removeCart: () => { },
     totalItems: 0,
+    totalAmount: 0,
 });
 
 export const CartContextProvider = (props) => {
     const [cartItems, setCartItems] = useState([]);
+    const [totalAmount, setTotalAmount] = useState(0);
+  
+     console.log(cartItems);
+    const url = 'https://crudcrud.com/api/e6dd61c061e64d0cb61d8df5e4ee7737'
+
+
+    useEffect(() => {
+        getdata()
+    }, [])
+
+
+    async function getdata() {
+        try {
+            const response = await axios.get(`${url}/cart`);
+            setCartItems(response.data);
+            console.log(response.data);
+        } catch (err) {
+            console.error("Error fetching cart data:", err.message);
+        }
+    }
 
     // Add items to the cart with quantity update logic
-    const addcartItemsHandler = (name, description, price, quantity) => {
-        setCartItems((prevItems) => {
-            const updatedCartItems = [...prevItems];
-            const existingCartItemIndex = updatedCartItems.findIndex(
-                (item) => item.name === name
-            );
+    async function addcartItemsHandler(dataobj) {
+        const existingCartItemIndex = cartItems.findIndex((item) => item.data.name === dataobj.name);
+        console.log(dataobj);
+        console.log(cartItems);
 
-            if (existingCartItemIndex !== -1) {
-                // If item already exists, increase its quantity
-                updatedCartItems[existingCartItemIndex].quantity += quantity;
-            } else {
-                // If item doesn't exist, add as a new item
-                updatedCartItems.push({ name, description, price, quantity });
+        if (existingCartItemIndex === -1) {
+            try {
+                const response = await axios.post(`${url}/cart`, {
+                    data: dataobj,
+                })
+                console.log(response.data);
+                setCartItems((prevState) => {
+
+                    return [...prevState, response.data];
+                })
+            } catch (err) {
+                console.log(err.message)
             }
+        } else {
+            alert('this item is already present in the cart')
+        }
 
-            return updatedCartItems;
-        });
+
     };
+
 
     // Function to clear the cart
-    const removeCartHandler = () => {
-        setCartItems([]);
+    async function removeCartHandler() {
+
+        try {
+            const response = await axios.get(`${url}/cart`);
+            const cartItems = response.data;
+    
+            await Promise.all(
+                cartItems.map((item) => axios.delete(`${url}/cart/${item._id}`)),
+                    setCartItems([])
+            );
+            
+        } catch (err) {
+            console.log(err.message);
+        }
+
     };
 
-    const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+    const totalItems = cartItems.reduce((total, item) => total + item.data.quantity, 0);
+    
+    console.log(totalItems);
 
     const cartValue = {
         cartItems: cartItems,
         addcartItems: addcartItemsHandler,
         removeCart: removeCartHandler,
         totalItems: totalItems,
+        totalAmount: totalAmount,
     };
 
     return (

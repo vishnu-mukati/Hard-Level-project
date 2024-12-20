@@ -1,30 +1,67 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
+import classes from "./Cart.module.css";
+import Modal from "../../Modal/Modal";
 import CartContext from "../../store/CartContext";
+import { Container, Row, Col, Table } from "react-bootstrap";
 
-const Cart = ({ onClose }) => {
-    const cartCtx = useContext(CartContext);
-    const cartItems = cartCtx.cartItems;
+const Card = (props) => {
+
+   
+
+    const Cartctx = useContext(CartContext);
+    console.log(Cartctx.cartItems);
+    const numberOfCartItems = Cartctx.cartItems.reduce((currTotal, item) => {
+        
+        return currTotal + item.data.price*item.data.quantity;
+      }, 0)
+      console.log(typeof(numberOfCartItems));
+      console.log(numberOfCartItems);
+    
+    const cleanCartHandler = () =>{
+        Cartctx.removeCart();
+    }
+
+    const cartitems = Cartctx.cartItems.map((item, index) => {
+        return (
+            <tr key={index}>
+                <td>{item.data.name}</td>
+                <td>{item.data.price}</td>
+                <td>{item.data.quantity}</td>
+            </tr>
+        );
+    })
 
     return (
-        <section style={{ border: "1px solid black", padding: "1rem" }}>
-            <h2>Cart</h2>
-            <button onClick={onClose} style={{ float: "right" }}>
-                X
-            </button>
-            {cartItems.length > 0 ? (
-                cartItems.map((item, index) => (
-                    <div key={index}>
-                        <h3>{item.name}</h3>
-                        <p>Description: {item.description}</p>
-                        <p>Price: ₹{item.price}</p>
-                        <p>Quantity: {item.quantity}</p>
-                    </div>
-                ))
-            ) : (
-                <p>No items in the cart.</p>
-            )}
-        </section>
-    );
-};
 
-export default Cart;
+        <Modal onClose={props.onClose}>
+            <Container >
+                <Row>
+                    <Col>
+                        <Table striped bordered hover>
+                            <thead>
+                                <tr>
+                                    <th>Medicine Name</th>
+                                    <th>Medicine Price</th>
+                                    <th>Medicine Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {cartitems}
+                            </tbody>
+                        </Table>
+                    </Col>
+                </Row>
+            </Container>
+            <div className={classes.total}>
+                <span>Total Amount</span>
+                <span>${numberOfCartItems}</span>
+            </div>
+            <div className={classes.actions}>
+                <button className={classes['button-alt']} onClick={props.onClose}>Close</button>
+                <button className={classes.button} onClick={cleanCartHandler}>Generate Bill</button>
+            </div>
+        </Modal>
+    );
+}
+
+export default Card;
